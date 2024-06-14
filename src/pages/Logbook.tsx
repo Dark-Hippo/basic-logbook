@@ -19,16 +19,18 @@ export const Logbook = () => {
     return <div>Logbook not found</div>
   }
 
+  type RecordsByDateType = { [key: string]: LogBookRecordType[] };
+
   useEffect(() => {
     // group logbook.records by date
-    const recordsByDate: { [key: string]: LogBookRecordType[] } = logbook.records.reduce((acc, record) => {
+    const recordsByDate: RecordsByDateType = logbook.records.reduce((acc, record) => {
       const date = formatDate(record.added);
       if (!acc[date]) {
         acc[date] = [];
       }
       acc[date].push(record);
       return acc;
-    }, {});
+    }, {} as RecordsByDateType);
 
     const today = formatDate(new Date());
     setRecords(recordsByDate[today] || []);

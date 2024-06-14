@@ -2,7 +2,7 @@ import { ReactNode, createContext, useContext, useState } from "react";
 import { logbookData } from "../testData";
 
 export type LogBookRecordType = {
-  id: number;
+  id: string;
   added: Date;
   value: number;
 }

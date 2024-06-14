@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { LogBookRecordType, LogBookType, useLogbook } from "../context/LogbookContext";
 import { useEffect, useState } from "react";
 import { LogbookEntry } from "../components/LogbookEntry";
+import { v4 as uuidv4 } from 'uuid';
 
 export const Logbook = () => {
   const { logbooks } = useLogbook();
@@ -52,7 +53,7 @@ export const Logbook = () => {
     if (Number(entry) < 0) return;
 
     const record: LogBookRecordType = {
-      id: records.length + 1,
+      id: uuidv4(),
       added: new Date(),
       value: Number(entry)
     }
@@ -71,7 +72,7 @@ export const Logbook = () => {
     }).replace(/\//g, '-');
   }
 
-  const onDelete = (id: number) => {
+  const onDelete = (id: string) => {
     // delete from logbook.records where id === id
     const updatedRecords = records.filter(record => record.id !== id);
     setRecords(updatedRecords);

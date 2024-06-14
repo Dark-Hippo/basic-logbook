@@ -1,8 +1,7 @@
 import { useParams } from "react-router-dom";
-import { LogBookRecordType, LogBookType, useLogbook } from "../context/LogbookContext";
-import { useEffect, useState } from "react";
+import { LogBookType, useLogbook } from "../context/LogbookContext";
+import { useState } from "react";
 import { LogbookEntry } from "../components/LogbookEntry";
-import { v4 as uuidv4 } from 'uuid';
 import { useRecords } from "../hooks/useRecords";
 import { useFormatDate } from "../hooks/useFormatDate";
 
@@ -23,9 +22,9 @@ export const Logbook = () => {
 
   const {
     todayRecords,
-    setTodayRecords,
     previousRecords,
-    handleAddEntry
+    handleAddEntry,
+    handleRemoveRecord,
   } = useRecords(logbook.records);
 
   const submitHandler = (e: React.FormEvent) => {
@@ -34,16 +33,20 @@ export const Logbook = () => {
     setEntry("");
   }
 
-  const onDelete = (id: string) => {
-    // delete from logbook.records where id === id
-    const record = todayRecords.records.find(record => record.id === id);
-    if (!record) return;
-    const updatedRecords = todayRecords.records.filter(record => record.id !== id);
-    setTodayRecords({
-      records: updatedRecords,
-      total: todayRecords.total - record.value
-    });
-    logbook.records = updatedRecords;
+  // const onDelete = (id: string) => {
+  //   // delete from logbook.records where id === id
+  //   const record = todayRecords.records.find(record => record.id === id);
+  //   if (!record) return;
+  //   const updatedRecords = todayRecords.records.filter(record => record.id !== id);
+  //   setTodayRecords({
+  //     records: updatedRecords,
+  //     total: todayRecords.total - record.value
+  //   });
+  //   logbook.records = updatedRecords;
+  // }
+
+  const deleteHandler = (id: string) => {
+    handleRemoveRecord(id);
   }
 
   return (
@@ -58,7 +61,7 @@ export const Logbook = () => {
       </div>
       <ul>
         {todayRecords.records.map((record) => (
-          <LogbookEntry record={record} onDelete={onDelete} key={record.id} />
+          <LogbookEntry record={record} onDelete={deleteHandler} key={record.id} />
         ))}
       </ul>
       <ul>
@@ -67,7 +70,7 @@ export const Logbook = () => {
             <h3>{date}</h3>
             <ul>
               {recordByDate.records.map((record) => (
-                <LogbookEntry record={record} onDelete={onDelete} key={record.id} />
+                <LogbookEntry record={record} onDelete={deleteHandler} key={record.id} />
               ))}
             </ul>
           </li>

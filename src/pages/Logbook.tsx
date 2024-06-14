@@ -21,7 +21,7 @@ export const Logbook = () => {
     return <div>Logbook not found</div>
   }
 
-  const { todayRecords, setTodayRecords, previousRecords, dailyTotal } = useRecords(logbook.records);
+  const { todayRecords, setTodayRecords, previousRecords } = useRecords(logbook.records);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,23 +39,32 @@ export const Logbook = () => {
       value: Number(entry)
     }
 
-    // logbook.records = [...records, record];
-    setTodayRecords([...todayRecords, record]);
+    setTodayRecords({
+      records: [...todayRecords.records, record],
+      total: todayRecords.total + record.value
+    });
+
+    logbook.records = [...todayRecords.records, record];
 
     setEntry("");
   }
 
   const onDelete = (id: string) => {
     // delete from logbook.records where id === id
-    const updatedRecords = todayRecords.filter(record => record.id !== id);
-    setTodayRecords(updatedRecords);
+    const record = todayRecords.records.find(record => record.id === id);
+    if (!record) return;
+    const updatedRecords = todayRecords.records.filter(record => record.id !== id);
+    setTodayRecords({
+      records: updatedRecords,
+      total: todayRecords.total - record.value
+    });
     logbook.records = updatedRecords;
   }
 
   return (
     <div>
       <h1>Logbook {logbook.name}</h1>
-      <h2>{formatDate(new Date())} -Total for today {dailyTotal}</h2>
+      <h2>{formatDate(new Date())} -Total for today {todayRecords.total}</h2>
       <div>
         <form onSubmit={handleSubmit}>
           <input type="number" value={entry} onChange={e => setEntry(e.target.value)} />
@@ -63,7 +72,7 @@ export const Logbook = () => {
         </form>
       </div>
       <ul>
-        {todayRecords.map((record) => (
+        {todayRecords.records.map((record) => (
           <LogbookEntry record={record} onDelete={onDelete} key={record.id} />
         ))}
       </ul>

@@ -14,7 +14,8 @@ function App() {
   return (
     <div id='container' className={theme}>
       <Routes>
-        <Route path='logbook/:logbookId/*' element={<Header back={true} title='Simple logbook' />} />
+        <Route path='logbook/:logbookId/' element={<Header back={true} title='Simple logbook' />} />
+        <Route path='logbook/:logbookId/:date' element={<Header back={true} title='Simple logbook' />} />
         <Route path='*' element={<Header back={false} title='Simple logbook' />} />
       </Routes>
       <main>

@@ -19,12 +19,12 @@ export const useRecords = (records: LogBookRecordType[]) => {
     total: 0,
   });
   const [previousRecords, setPreviousRecords] = useState<RecordsByDateType>({});
-  const formatDate = useFormatDate();
+  const { formatDateForURL } = useFormatDate();
 
   useEffect(() => {
     // group logbook.records by date
     const recordsByDate: RecordsByDateType = records.reduce((acc, record) => {
-      const date = formatDate(record.added);
+      const date = formatDateForURL(record.added);
       if (!acc[date]) {
         acc[date] = { records: [], total: 0 };
       }
@@ -33,7 +33,7 @@ export const useRecords = (records: LogBookRecordType[]) => {
       return acc;
     }, {} as RecordsByDateType);
 
-    const today = formatDate(new Date());
+    const today = formatDateForURL(new Date());
 
     // Filter out today's records from recordsByDate
     const previousRecordsByDate = Object.entries(recordsByDate).reduce(

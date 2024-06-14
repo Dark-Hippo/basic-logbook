@@ -70,10 +70,29 @@ export const useRecords = (records: LogBookRecordType[]) => {
     });
   };
 
+  const handleRemoveRecord = (id: string) => {
+    const record = todayRecords.records.find((record) => record.id === id);
+    if (!record) return;
+
+    const updatedRecords = todayRecords.records.filter(
+      (record) => record.id !== id
+    );
+    setTodayRecords({
+      records: updatedRecords,
+      total: todayRecords.total - record.value,
+    });
+
+    const index = records.findIndex((record) => record.id === id);
+    if (index !== -1) {
+      records.splice(index, 1);
+    }
+  };
+
   return {
     todayRecords,
     setTodayRecords,
     previousRecords,
     handleAddEntry,
+    handleRemoveRecord,
   };
 };

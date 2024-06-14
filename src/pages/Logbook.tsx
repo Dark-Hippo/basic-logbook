@@ -33,18 +33,6 @@ export const Logbook = () => {
     setEntry("");
   }
 
-  // const onDelete = (id: string) => {
-  //   // delete from logbook.records where id === id
-  //   const record = todayRecords.records.find(record => record.id === id);
-  //   if (!record) return;
-  //   const updatedRecords = todayRecords.records.filter(record => record.id !== id);
-  //   setTodayRecords({
-  //     records: updatedRecords,
-  //     total: todayRecords.total - record.value
-  //   });
-  //   logbook.records = updatedRecords;
-  // }
-
   const deleteHandler = (id: string) => {
     handleRemoveRecord(id);
   }
@@ -67,12 +55,7 @@ export const Logbook = () => {
       <ul>
         {Object.entries(previousRecords).map(([date, recordByDate]) => (
           <li key={date}>
-            <h3>{date}</h3>
-            <ul>
-              {recordByDate.records.map((record) => (
-                <LogbookEntry record={record} onDelete={deleteHandler} key={record.id} />
-              ))}
-            </ul>
+            {date} - Total {recordByDate.total}
           </li>
         ))}
       </ul>

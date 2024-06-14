@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { LogBookType, useLogbook } from "../context/LogbookContext";
 import { useState } from "react";
 import { LogbookEntry } from "../components/LogbookEntry";
@@ -14,7 +14,7 @@ export const Logbook = () => {
   const logbook: LogBookType | undefined = logbooks.find((logbook) => logbook.id === id);
 
   const [entry, setEntry] = useState("");
-  const formatDate = useFormatDate();
+  const { formatDate } = useFormatDate();
 
   if (!logbook) {
     return <div>Logbook not found</div>
@@ -55,7 +55,7 @@ export const Logbook = () => {
       <ul>
         {Object.entries(previousRecords).map(([date, recordByDate]) => (
           <li key={date}>
-            {date} - Total {recordByDate.total}
+            <Link to={`/logbook/${logbook.id}/${date}`}>{date} - Total {recordByDate.total}</Link>
           </li>
         ))}
       </ul>

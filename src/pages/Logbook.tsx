@@ -3,6 +3,8 @@ import { LogBookRecordType, LogBookType, useLogbook } from "../context/LogbookCo
 import { useEffect, useState } from "react";
 import { LogbookEntry } from "../components/LogbookEntry";
 import { v4 as uuidv4 } from 'uuid';
+import { useRecords } from "../hooks/useRecords";
+import { useFormatDate } from "../hooks/useFormatDate";
 
 export const Logbook = () => {
   const { logbooks } = useLogbook();
@@ -12,48 +14,14 @@ export const Logbook = () => {
 
   const logbook: LogBookType | undefined = logbooks.find((logbook) => logbook.id === id);
 
-  type RecordsByDateType = { [key: string]: LogBookRecordType[] };
-
   const [entry, setEntry] = useState("");
-  const [dailyTotal, setDailyTotal] = useState(0);
-  const [todayRecords, setTodayRecords] = useState<LogBookRecordType[]>([]);
-  const [previousRecords, setPreviousRecords] = useState<RecordsByDateType>({});
+  const formatDate = useFormatDate();
 
   if (!logbook) {
     return <div>Logbook not found</div>
   }
 
-  useEffect(() => {
-    // group logbook.records by date
-    const recordsByDate: RecordsByDateType = logbook.records.reduce((acc, record) => {
-      const date = formatDate(record.added);
-      if (!acc[date]) {
-        acc[date] = [];
-      }
-      acc[date].push(record);
-      return acc;
-    }, {} as RecordsByDateType);
-
-    const today = formatDate(new Date());
-
-    // Filter out today's records from recordsByDate
-    const previousRecordsByDate = Object.entries(recordsByDate).reduce((acc, [date, records]) => {
-      if (date !== today) {
-        acc[date] = records;
-      }
-      return acc;
-    }, {} as RecordsByDateType);
-
-    setTodayRecords(recordsByDate[today] || []);
-    setPreviousRecords(previousRecordsByDate);
-
-    console.log('previousRecords', previousRecords)
-  }, [logbook.records]);
-
-  useEffect(() => {
-    const total = todayRecords.reduce((acc, record) => acc + record.value, 0);
-    setDailyTotal(total);
-  }, [todayRecords]);
+  const { todayRecords, setTodayRecords, previousRecords, dailyTotal } = useRecords(logbook.records);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,14 +43,6 @@ export const Logbook = () => {
     setTodayRecords([...todayRecords, record]);
 
     setEntry("");
-  }
-
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    }).replace(/\//g, '-');
   }
 
   const onDelete = (id: string) => {

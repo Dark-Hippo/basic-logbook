@@ -33,18 +33,19 @@ export const Logbook = () => {
     if (isNaN(Number(entry))) return;
     if (Number(entry) < 0) return;
 
+    // TODO: Move this to own class to handle uuid in constructor
     const record: LogBookRecordType = {
       id: uuidv4(),
       added: new Date(),
       value: Number(entry)
     }
 
+    logbook.records.push(record);
+
     setTodayRecords({
       records: [...todayRecords.records, record],
       total: todayRecords.total + record.value
     });
-
-    logbook.records = [...todayRecords.records, record];
 
     setEntry("");
   }
@@ -74,6 +75,18 @@ export const Logbook = () => {
       <ul>
         {todayRecords.records.map((record) => (
           <LogbookEntry record={record} onDelete={onDelete} key={record.id} />
+        ))}
+      </ul>
+      <ul>
+        {Object.entries(previousRecords).map(([date, recordByDate]) => (
+          <li key={date}>
+            <h3>{date}</h3>
+            <ul>
+              {recordByDate.records.map((record) => (
+                <LogbookEntry record={record} onDelete={onDelete} key={record.id} />
+              ))}
+            </ul>
+          </li>
         ))}
       </ul>
     </div>

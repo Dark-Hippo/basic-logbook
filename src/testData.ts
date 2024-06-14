@@ -1,4 +1,5 @@
 import { LogBookType } from './context/LogbookContext';
+import { v4 as uuidv4 } from 'uuid';
 
 export const logbookData: LogBookType[] = [
   {
@@ -6,27 +7,27 @@ export const logbookData: LogBookType[] = [
     name: 'Workout',
     records: [
       {
-        id: 1,
+        id: uuidv4(),
         added: new Date('2024-06-11T08:00:00Z'),
         value: 100,
       },
       {
-        id: 2,
+        id: uuidv4(),
         added: new Date('2024-06-12T08:00:00Z'),
         value: 200,
       },
       {
-        id: 3,
+        id: uuidv4(),
         added: new Date('2024-06-12T09:00:00Z'),
         value: 300,
       },
       {
-        id: 4,
+        id: uuidv4(),
         added: new Date('2024-06-13T11:30:00Z'),
         value: 300,
       },
       {
-        id: 5,
+        id: uuidv4(),
         added: new Date('2024-06-14T09:00:00Z'),
         value: 300,
       },
@@ -37,17 +38,17 @@ export const logbookData: LogBookType[] = [
     name: 'Diet',
     records: [
       {
-        id: 1,
+        id: uuidv4(),
         added: new Date('2024-06-11T08:00:00Z'),
         value: 2000,
       },
       {
-        id: 2,
+        id: uuidv4(),
         added: new Date('2024-06-12T08:00:00Z'),
         value: 2500,
       },
       {
-        id: 3,
+        id: uuidv4(),
         added: new Date('2024-06-13T09:00:00Z'),
         value: 3000,
       },

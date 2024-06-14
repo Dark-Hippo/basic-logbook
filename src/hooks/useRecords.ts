@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { LogBookRecordType } from '../context/LogbookContext';
-import { RecordsByDateType } from '../types/RecordsByDateType';
+import {
+  RecordByDateType,
+  RecordsByDateType,
+} from '../types/RecordsByDateType';
 import { useFormatDate } from './useFormatDate';
 
 /**
@@ -10,8 +13,10 @@ import { useFormatDate } from './useFormatDate';
  * @returns An object containing today's records, previous records, and daily total.
  */
 export const useRecords = (records: LogBookRecordType[]) => {
-  const [dailyTotal, setDailyTotal] = useState(0);
-  const [todayRecords, setTodayRecords] = useState<LogBookRecordType[]>([]);
+  const [todayRecords, setTodayRecords] = useState<RecordByDateType>({
+    records: [],
+    total: 0,
+  });
   const [previousRecords, setPreviousRecords] = useState<RecordsByDateType>({});
   const formatDate = useFormatDate();
 
@@ -20,9 +25,10 @@ export const useRecords = (records: LogBookRecordType[]) => {
     const recordsByDate: RecordsByDateType = records.reduce((acc, record) => {
       const date = formatDate(record.added);
       if (!acc[date]) {
-        acc[date] = [];
+        acc[date] = { records: [], total: 0 };
       }
-      acc[date].push(record);
+      acc[date].total += record.value;
+      acc[date].records.push(record);
       return acc;
     }, {} as RecordsByDateType);
 
@@ -43,15 +49,9 @@ export const useRecords = (records: LogBookRecordType[]) => {
     setPreviousRecords(previousRecordsByDate);
   }, [records]);
 
-  useEffect(() => {
-    const total = todayRecords.reduce((acc, record) => acc + record.value, 0);
-    setDailyTotal(total);
-  }, [todayRecords]);
-
   return {
     todayRecords,
     setTodayRecords,
     previousRecords,
-    dailyTotal,
   };
 };

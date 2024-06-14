@@ -21,32 +21,16 @@ export const Logbook = () => {
     return <div>Logbook not found</div>
   }
 
-  const { todayRecords, setTodayRecords, previousRecords } = useRecords(logbook.records);
+  const {
+    todayRecords,
+    setTodayRecords,
+    previousRecords,
+    handleAddEntry
+  } = useRecords(logbook.records);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    handleAddEntry();
-  }
-
-  const handleAddEntry = () => {
-    if (!entry) return;
-    if (isNaN(Number(entry))) return;
-    if (Number(entry) < 0) return;
-
-    // TODO: Move this to own class to handle uuid in constructor
-    const record: LogBookRecordType = {
-      id: uuidv4(),
-      added: new Date(),
-      value: Number(entry)
-    }
-
-    logbook.records.push(record);
-
-    setTodayRecords({
-      records: [...todayRecords.records, record],
-      total: todayRecords.total + record.value
-    });
-
+    handleAddEntry(entry);
     setEntry("");
   }
 
@@ -67,7 +51,7 @@ export const Logbook = () => {
       <h1>Logbook {logbook.name}</h1>
       <h2>{formatDate(new Date())} -Total for today {todayRecords.total}</h2>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitHandler}>
           <input type="number" value={entry} onChange={e => setEntry(e.target.value)} />
           <button type="submit">Add entry</button>
         </form>

@@ -5,6 +5,7 @@ import {
   RecordsByDateType,
 } from '../types/RecordsByDateType';
 import { useFormatDate } from './useFormatDate';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Custom hook that manages log book records.
@@ -49,9 +50,30 @@ export const useRecords = (records: LogBookRecordType[]) => {
     setPreviousRecords(previousRecordsByDate);
   }, [records]);
 
+  const handleAddEntry = (entry: string) => {
+    if (!entry) return;
+    if (isNaN(Number(entry))) return;
+    if (Number(entry) < 0) return;
+
+    // TODO: Move this to own class to handle uuid in constructor
+    const record: LogBookRecordType = {
+      id: uuidv4(),
+      added: new Date(),
+      value: Number(entry),
+    };
+
+    records.push(record);
+
+    setTodayRecords({
+      records: [...todayRecords.records, record],
+      total: todayRecords.total + record.value,
+    });
+  };
+
   return {
     todayRecords,
     setTodayRecords,
     previousRecords,
+    handleAddEntry,
   };
 };

@@ -6,6 +6,7 @@ import { useTheme } from './context/ThemeContext';
 import { Home } from './pages/Home';
 import { Logbook } from './pages/Logbook';
 import { NotFound } from './pages/404';
+import { LogbookDay } from './pages/LogbookDay';
 
 function App() {
   const { theme } = useTheme();
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='logbook/:logbookId/' element={<Logbook />} />
+          <Route path='logbook/:logbookId/:date' element={<LogbookDay />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </main>

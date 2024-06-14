@@ -47,10 +47,6 @@ export const LogbookDay = () => {
     console.log('deleteHandler', id)
   }
 
-  useEffect(() => {
-    console.log(recordByDate);
-  }, [recordByDate]);
-
   return (
     <div>
       <h1>Logbook {logbook.name}</h1>

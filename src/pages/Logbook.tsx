@@ -12,15 +12,16 @@ export const Logbook = () => {
 
   const logbook: LogBookType | undefined = logbooks.find((logbook) => logbook.id === id);
 
+  type RecordsByDateType = { [key: string]: LogBookRecordType[] };
+
   const [entry, setEntry] = useState("");
   const [dailyTotal, setDailyTotal] = useState(0);
-  const [records, setRecords] = useState<LogBookRecordType[]>([]);
+  const [todayRecords, setTodayRecords] = useState<LogBookRecordType[]>([]);
+  const [previousRecords, setPreviousRecords] = useState<RecordsByDateType>({});
 
   if (!logbook) {
     return <div>Logbook not found</div>
   }
-
-  type RecordsByDateType = { [key: string]: LogBookRecordType[] };
 
   useEffect(() => {
     // group logbook.records by date
@@ -34,13 +35,25 @@ export const Logbook = () => {
     }, {} as RecordsByDateType);
 
     const today = formatDate(new Date());
-    setRecords(recordsByDate[today] || []);
+
+    // Filter out today's records from recordsByDate
+    const previousRecordsByDate = Object.entries(recordsByDate).reduce((acc, [date, records]) => {
+      if (date !== today) {
+        acc[date] = records;
+      }
+      return acc;
+    }, {} as RecordsByDateType);
+
+    setTodayRecords(recordsByDate[today] || []);
+    setPreviousRecords(previousRecordsByDate);
+
+    console.log('previousRecords', previousRecords)
   }, [logbook.records]);
 
   useEffect(() => {
-    const total = records.reduce((acc, record) => acc + record.value, 0);
+    const total = todayRecords.reduce((acc, record) => acc + record.value, 0);
     setDailyTotal(total);
-  }, [records]);
+  }, [todayRecords]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,7 +72,7 @@ export const Logbook = () => {
     }
 
     // logbook.records = [...records, record];
-    setRecords([...records, record]);
+    setTodayRecords([...todayRecords, record]);
 
     setEntry("");
   }
@@ -74,8 +87,8 @@ export const Logbook = () => {
 
   const onDelete = (id: string) => {
     // delete from logbook.records where id === id
-    const updatedRecords = records.filter(record => record.id !== id);
-    setRecords(updatedRecords);
+    const updatedRecords = todayRecords.filter(record => record.id !== id);
+    setTodayRecords(updatedRecords);
     logbook.records = updatedRecords;
   }
 
@@ -90,7 +103,7 @@ export const Logbook = () => {
         </form>
       </div>
       <ul>
-        {records.map((record) => (
+        {todayRecords.map((record) => (
           <LogbookEntry record={record} onDelete={onDelete} key={record.id} />
         ))}
       </ul>

@@ -46,7 +46,7 @@ export const useRecords = (records: LogBookRecordType[]) => {
       {} as RecordsByDateType
     );
 
-    setTodayRecords(recordsByDate[today] || []);
+    setTodayRecords(recordsByDate[today] || { records: [], total: 0 });
     setPreviousRecords(previousRecordsByDate);
   }, [records]);
 

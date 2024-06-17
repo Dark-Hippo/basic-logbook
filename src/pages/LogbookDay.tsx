@@ -62,7 +62,16 @@ export const LogbookDay = () => {
   }
 
   const deleteHandler = (id: string) => {
-    console.log('deleteHandler', id)
+
+    logbook.records = logbook.records.filter((record) => record.id !== id);
+
+    const record = recordByDate.records.find((record) => record.id === id);
+    if (!record) return;
+
+    setRecordByDate({
+      records: recordByDate.records.filter((record) => record.id !== id),
+      total: recordByDate.total - record.value,
+    });
   }
 
   return (

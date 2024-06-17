@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
-import { LogBookType, useLogbook } from "../context/LogbookContext";
+import { LogBookRecordType, LogBookType, useLogbook } from "../context/LogbookContext";
 import { useEffect, useState } from "react";
 import { LogbookEntry } from "../components/LogbookEntry";
 import { useFormatDate } from "../hooks/useFormatDate";
 import { RecordByDateType } from "../types/RecordsByDateType";
+import { v4 as uuidv4 } from "uuid";
 
 export const LogbookDay = () => {
   const { logbooks } = useLogbook();
@@ -39,7 +40,24 @@ export const LogbookDay = () => {
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('submitHandler', entry)
+
+    if (!entry) return;
+    if (isNaN(Number(entry))) return;
+    if (Number(entry) < 0) return;
+
+    const record: LogBookRecordType = {
+      id: uuidv4(),
+      added: recordsDate,
+      value: Number(entry),
+    };
+
+    logbook.records = [...logbook.records, record];
+
+    setRecordByDate({
+      records: [...recordByDate.records],
+      total: recordByDate.total + record.value,
+    });
+    // console.log('submitHandler', entry)
     setEntry("");
   }
 

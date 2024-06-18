@@ -57,7 +57,7 @@ export const LogbookDay = () => {
       records: [...recordByDate.records],
       total: recordByDate.total + record.value,
     });
-    // console.log('submitHandler', entry)
+
     setEntry("");
   }
 

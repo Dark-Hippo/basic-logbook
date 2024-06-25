@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import Modal from 'react-modal';
 import { useLogbook } from '../context/LogbookContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
+import './AddNewLogbookModal.css';
 
 export const AddNewLogbookModal = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -26,7 +30,10 @@ export const AddNewLogbookModal = () => {
 
   return (
     <>
-      <button onClick={openModal}>Add new logbook</button>
+      <button className='addNewLogbookButton' onClick={openModal}>
+        <FontAwesomeIcon className='addNewLogbookIcon' icon={faPlus} />
+        Add new logbook
+      </button>
       <Modal
         id='add-new-logbook'
         onRequestClose={closeModal}

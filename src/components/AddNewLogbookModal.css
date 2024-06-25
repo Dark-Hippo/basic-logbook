@@ -1,0 +1,9 @@
+.addNewLogbookButton {
+  width: 100%;
+  height: 2rem;
+}
+
+.addNewLogbookButton .addNewLogbookIcon {
+  margin-right: 10px;
+  font-size: 1rem;
+}

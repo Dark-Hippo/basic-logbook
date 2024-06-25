@@ -4,6 +4,8 @@ import { faMoon as faMoonRegular } from '@fortawesome/free-regular-svg-icons'
 import { useTheme } from '../context/ThemeContext';
 import { Link, useParams } from 'react-router-dom';
 
+import './Header.css';
+
 type HeaderProps = {
   back: boolean;
   title: string;
@@ -20,11 +22,9 @@ export const Header = ({ back, title }: HeaderProps) => {
     <header>
       <div className="left">
         {back &&
-          <button>
-            <Link to={backLink}>
-              <FontAwesomeIcon icon={faArrowLeft} />
-            </Link>
-          </button>}
+          <Link to={backLink}>
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </Link>}
       </div>
       <div className="middle">{title}</div>
       <div className="right"><FontAwesomeIcon icon={icon} onClick={toggleTheme} /></div>

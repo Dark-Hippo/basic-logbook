@@ -1,15 +1,20 @@
 body {
   margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #container.light {
   --background-color: #f0f0f0;
   --color: #333;
+  --row-background-color: #fff;
+  --seperator-color: #ccc;
 }
 
 #container.dark {
   --background-color: #333;
   --color: #f0f0f0;
+  --row-background-color: #444;
+  --seperator-color: #555;
 }
 
 #container {
@@ -25,35 +30,55 @@ body {
   color: var(--color);
 }
 
-header {
-  grid-area: header;
-  display: grid;
-  grid-template-columns: 40px 1fr 40px;
-  height: 40px;
-  width: 100%;
-}
-
-header > div {
-  /* vertically and horizontally center the content */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-header .left,
-header .right {
-  background-color: #0f0;
-}
-
-header .middle {
-  background-color: #f0f;
-  padding: 0 20px;
-}
-
 main {
   grid-area: main;
   background-color: var(--background-color);
   padding: 20px;
+}
+
+main .logbookList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-top: 20px;
+}
+
+main .logbookList h1 {
+  margin: 0;
+  padding: 0;
+}
+
+main .logbookList .logbooks {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+main .logbookList .logbooks .logbook:first-child {
+  border-top: 1px solid var(--seperator-color);
+}
+
+main .logbookList .logbooks .logbook {
+  display: flex;
+  border-bottom: 1px solid var(--seperator-color);
+  background-color: var(--row-background-color);
+}
+
+main .logbookList .logbooks .logbook a {
+  width: 100%;
+  padding: 10px;
+  text-decoration: none;
+  color: var(--color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+main .logbookList .logbooks .logbook a .logbookName {
+}
+
+main .logbookList .logbooks .logbook a .logbookArrowIcon {
 }
 
 footer {

@@ -13,7 +13,7 @@ export const LogbookList = () => {
       <h1>Logbooks</h1>
       <ul className='logbooks'>
         {logbooks.map((logbook) => (
-          <li key={logbook.id} className='logbook'>
+          <li key={logbook.id} className='logbookListEntry'>
             <Link to={'logbook/' + logbook.id}>
               <div className="logbookName">
                 {logbook.name}

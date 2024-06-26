@@ -8,6 +8,10 @@ body {
   --color: #333;
   --row-background-color: #fff;
   --seperator-color: #ccc;
+  --input-background-color: #fff;
+  --input-color: #333;
+  --delete-button-background-color: transparent;
+  --delete-button-color: #9c0b0b;
 }
 
 #container.dark {
@@ -15,6 +19,10 @@ body {
   --color: #f0f0f0;
   --row-background-color: #444;
   --seperator-color: #555;
+  --input-background-color: #555;
+  --input-color: #f0f0f0;
+  --delete-button-background-color: transparent;
+  --delete-button-color: #9c0b0b;
 }
 
 #container {
@@ -55,17 +63,17 @@ main .logbookList .logbooks {
   margin: 0;
 }
 
-main .logbookList .logbooks .logbook:first-child {
+main .logbookList .logbooks .logbookListEntry:first-child {
   border-top: 1px solid var(--seperator-color);
 }
 
-main .logbookList .logbooks .logbook {
+main .logbookList .logbooks .logbookListEntry {
   display: flex;
   border-bottom: 1px solid var(--seperator-color);
   background-color: var(--row-background-color);
 }
 
-main .logbookList .logbooks .logbook a {
+main .logbookList .logbooks .logbookListEntry a {
   width: 100%;
   padding: 10px;
   text-decoration: none;
@@ -73,12 +81,6 @@ main .logbookList .logbooks .logbook a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-main .logbookList .logbooks .logbook a .logbookName {
-}
-
-main .logbookList .logbooks .logbook a .logbookArrowIcon {
 }
 
 footer {

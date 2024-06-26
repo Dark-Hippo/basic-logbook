@@ -5,6 +5,10 @@ import { LogbookEntry } from "../components/LogbookEntry";
 import { useRecords } from "../hooks/useRecords";
 import { useFormatDate } from "../hooks/useFormatDate";
 
+import './Logbook.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
 export const Logbook = () => {
   const { logbooks } = useLogbook();
   const { logbookId } = useParams<{ logbookId: string }>();
@@ -38,13 +42,15 @@ export const Logbook = () => {
   }
 
   return (
-    <div>
-      <h1>Logbook {logbook.name}</h1>
-      <h2>{formatDate(new Date())} -Total for today {todayRecords.total}</h2>
-      <div>
+    <div className="logbook">
+      <h1>{logbook.name}</h1>
+      <h2>{formatDate(new Date())} - {todayRecords.total}</h2>
+      <div className="addEntry">
         <form onSubmit={submitHandler}>
           <input type="number" value={entry} onChange={e => setEntry(e.target.value)} />
-          <button type="submit">Add entry</button>
+          <button type="submit">
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
         </form>
       </div>
       <ul>

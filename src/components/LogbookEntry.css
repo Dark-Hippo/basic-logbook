@@ -1,0 +1,35 @@
+.logbookEntry .logbookEntryContainer:first-child {
+  border-top: solid 1px var(--seperator-color);
+}
+
+.logbookEntry .logbookEntryContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--row-background-color);
+  color: var(--color);
+  padding: 10px;
+  border-bottom: solid 1px var(--seperator-color);
+}
+
+.logbookEntry .logbookEntryContainer .text {
+  display: flex;
+  align-items: baseline;
+}
+
+.logbookEntry .logbookEntryContainer .value {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-right: 10px;
+}
+
+.logbookEntry .logbookEntryContainer .date {
+  font-size: 0.7em;
+  font-style: italic;
+}
+
+.logbookEntry .logbookEntryContainer .delete {
+  background-color: var(--delete-button-background-color);
+  color: var(--delete-button-color);
+  border: none;
+}

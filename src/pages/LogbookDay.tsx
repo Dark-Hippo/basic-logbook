@@ -5,6 +5,10 @@ import { LogbookEntry } from "../components/LogbookEntry";
 import { useFormatDate } from "../hooks/useFormatDate";
 import { RecordByDateType } from "../types/RecordsByDateType";
 import { v4 as uuidv4 } from "uuid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
+import './Logbook.css'
 
 export const LogbookDay = () => {
   const { logbooks } = useLogbook();
@@ -75,16 +79,24 @@ export const LogbookDay = () => {
   }
 
   return (
-    <div>
-      <h1>Logbook {logbook.name}</h1>
-      <h2>{formatDate(recordsDate)} - Total: {recordByDate.total}</h2>
-      <div>
-        <form onSubmit={submitHandler}>
-          <input type="number" value={entry} onChange={e => setEntry(e.target.value)} />
-          <button type="submit">Add entry</button>
-        </form>
+    <div className="logbook">
+      <h1>{logbook.name}</h1>
+      <h2>{formatDate(recordsDate)}</h2>
+      <div className="logbookEntryTotalContainer">
+        <div className="addEntry">
+          <form onSubmit={submitHandler}>
+            <input type="number" value={entry} onChange={e => setEntry(e.target.value)} />
+            <button type="submit">
+              <FontAwesomeIcon icon={faPlus} />
+            </button>
+          </form>
+        </div>
+        <div className="total">
+          Current total:
+          <span className="totalText">{recordByDate.total}</span>
+        </div>
       </div>
-      <ul>
+      <ul className="logbookEntries">
         {recordByDate.records.map((record) => (
           <LogbookEntry record={record} onDelete={deleteHandler} key={record.id} />
         ))}

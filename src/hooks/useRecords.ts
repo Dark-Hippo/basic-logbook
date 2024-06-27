@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import { LogBookRecordType } from '../context/LogbookContext';
-import {
-  RecordByDateType,
-  RecordsByDateType,
-} from '../types/RecordsByDateType';
+import { RecordsByDateType } from '../types/RecordsByDateType';
 import { useFormatDate } from './useFormatDate';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -14,11 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
  * @returns An object containing today's records, previous records, and daily total.
  */
 export const useRecords = (records: LogBookRecordType[]) => {
-  const [todayRecords, setTodayRecords] = useState<RecordByDateType>({
-    records: [],
-    total: 0,
-  });
-  const [previousRecords, setPreviousRecords] = useState<RecordsByDateType>({});
+  const [recordsByDate, setRecordsByDate] = useState<RecordsByDateType>({});
   const { formatDateForURL } = useFormatDate();
 
   useEffect(() => {
@@ -33,21 +26,7 @@ export const useRecords = (records: LogBookRecordType[]) => {
       return acc;
     }, {} as RecordsByDateType);
 
-    const today = formatDateForURL(new Date());
-
-    // Filter out today's records from recordsByDate
-    const previousRecordsByDate = Object.entries(recordsByDate).reduce(
-      (acc, [date, records]) => {
-        if (date !== today) {
-          acc[date] = records;
-        }
-        return acc;
-      },
-      {} as RecordsByDateType
-    );
-
-    setTodayRecords(recordsByDate[today] || { records: [], total: 0 });
-    setPreviousRecords(previousRecordsByDate);
+    setRecordsByDate(recordsByDate);
   }, [records]);
 
   const handleAddEntry = (entry: string) => {
@@ -64,35 +43,21 @@ export const useRecords = (records: LogBookRecordType[]) => {
 
     records.push(record);
 
-    setTodayRecords({
-      records: [...todayRecords.records, record],
-      total: todayRecords.total + record.value,
+    setRecordsByDate({
+      ...recordsByDate,
+      [formatDateForURL(record.added)]: {
+        records: [
+          ...recordsByDate[formatDateForURL(record.added)].records,
+          record,
+        ],
+        total:
+          recordsByDate[formatDateForURL(record.added)].total + record.value,
+      },
     });
-  };
-
-  const handleRemoveRecord = (id: string) => {
-    const record = todayRecords.records.find((record) => record.id === id);
-    if (!record) return;
-
-    const updatedRecords = todayRecords.records.filter(
-      (record) => record.id !== id
-    );
-    setTodayRecords({
-      records: updatedRecords,
-      total: todayRecords.total - record.value,
-    });
-
-    const index = records.findIndex((record) => record.id === id);
-    if (index !== -1) {
-      records.splice(index, 1);
-    }
   };
 
   return {
-    todayRecords,
-    setTodayRecords,
-    previousRecords,
+    recordsByDate,
     handleAddEntry,
-    handleRemoveRecord,
   };
 };

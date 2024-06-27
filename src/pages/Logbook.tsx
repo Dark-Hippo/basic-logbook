@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { LogBookType, useLogbook } from "../context/LogbookContext";
 import { useState } from "react";
-import { LogbookEntry } from "../components/LogbookEntry";
 import { useRecords } from "../hooks/useRecords";
 import { useFormatDate } from "../hooks/useFormatDate";
 
@@ -26,20 +25,14 @@ export const Logbook = () => {
   }
 
   const {
-    todayRecords,
-    previousRecords,
+    recordsByDate,
     handleAddEntry,
-    handleRemoveRecord,
   } = useRecords(logbook.records);
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     handleAddEntry(entry);
     setEntry("");
-  }
-
-  const deleteHandler = (id: string) => {
-    handleRemoveRecord(id);
   }
 
   return (
@@ -57,12 +50,7 @@ export const Logbook = () => {
         </div>
       </div>
       <ul className="no-icon" style={{ paddingTop: '20px' }}>
-        {todayRecords.records.map((record) => (
-          <LogbookEntry record={record} onDelete={deleteHandler} key={record.id} />
-        ))}
-      </ul>
-      <ul className="no-icon">
-        {Object.entries(previousRecords).map(([date, recordByDate]) => (
+        {Object.entries(recordsByDate).map(([date, recordByDate]) => (
           <LogbookPreviousRecord key={date} logbookId={logbook.id} date={date} recordByDate={recordByDate} />
         ))}
       </ul>

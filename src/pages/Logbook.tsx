@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { LogBookType, useLogbook } from "../context/LogbookContext";
 import { useState } from "react";
 import { LogbookEntry } from "../components/LogbookEntry";
@@ -56,7 +56,7 @@ export const Logbook = () => {
           </form>
         </div>
       </div>
-      <ul>
+      <ul className="no-icon">
         {todayRecords.records.map((record) => (
           <LogbookEntry record={record} onDelete={deleteHandler} key={record.id} />
         ))}

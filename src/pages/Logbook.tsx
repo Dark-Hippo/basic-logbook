@@ -56,7 +56,7 @@ export const Logbook = () => {
           </form>
         </div>
       </div>
-      <ul className="no-icon">
+      <ul className="no-icon" style={{ paddingTop: '20px' }}>
         {todayRecords.records.map((record) => (
           <LogbookEntry record={record} onDelete={deleteHandler} key={record.id} />
         ))}

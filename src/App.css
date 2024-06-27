@@ -25,6 +25,12 @@ body {
   --delete-button-color: #9c0b0b;
 }
 
+ul.no-icon {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
 #container {
   display: grid;
   grid-template-areas:

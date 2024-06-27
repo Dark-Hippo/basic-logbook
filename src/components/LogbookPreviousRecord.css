@@ -1,0 +1,33 @@
+.previousLogbookEntry:first-child a {
+  border-top: solid 1px var(--seperator-color);
+}
+
+.previousLogbookEntry a {
+  background-color: var(--row-background-color);
+  display: flex;
+  border-bottom: solid 1px var(--seperator-color);
+  text-decoration: none;
+}
+
+.previousLogbookEntry a .previousLogbookEntryContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  color: var(--color);
+  width: 100%;
+}
+
+.previousLogbookEntry a .previousLogbookEntryContainer .text {
+  display: flex;
+  align-items: baseline;
+}
+
+.previousLogbookEntry a .previousLogbookEntryContainer .text .date {
+  font-size: 1.2em;
+  margin-right: 1em;
+}
+
+.previousLogbookEntry a .previousLogbookEntryContainer .text .value {
+  font-weight: bold;
+}

@@ -8,6 +8,7 @@ import { useFormatDate } from "../hooks/useFormatDate";
 import './Logbook.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { LogbookPreviousRecord } from "../components/LogbookPreviousRecord";
 
 export const Logbook = () => {
   const { logbooks } = useLogbook();
@@ -44,25 +45,25 @@ export const Logbook = () => {
   return (
     <div className="logbook">
       <h1>{logbook.name}</h1>
-      <h2>{formatDate(new Date())} - {todayRecords.total}</h2>
-      <div className="addEntry">
-        <form onSubmit={submitHandler}>
-          <input type="number" value={entry} onChange={e => setEntry(e.target.value)} />
-          <button type="submit">
-            <FontAwesomeIcon icon={faPlus} />
-          </button>
-        </form>
+      <h2>{formatDate(new Date())}</h2>
+      <div className="logbookEntryTotalContainer">
+        <div className="addEntry">
+          <form onSubmit={submitHandler}>
+            <input type="number" value={entry} onChange={e => setEntry(e.target.value)} />
+            <button type="submit">
+              <FontAwesomeIcon icon={faPlus} />
+            </button>
+          </form>
+        </div>
       </div>
       <ul>
         {todayRecords.records.map((record) => (
           <LogbookEntry record={record} onDelete={deleteHandler} key={record.id} />
         ))}
       </ul>
-      <ul>
+      <ul className="no-icon">
         {Object.entries(previousRecords).map(([date, recordByDate]) => (
-          <li key={date}>
-            <Link to={`/logbook/${logbook.id}/${date}`}>{date} - Total {recordByDate.total}</Link>
-          </li>
+          <LogbookPreviousRecord key={date} logbookId={logbook.id} date={date} recordByDate={recordByDate} />
         ))}
       </ul>
     </div>

@@ -49,11 +49,14 @@ export const Logbook = () => {
           </form>
         </div>
       </div>
-      <ul className="no-icon" style={{ paddingTop: '20px' }}>
-        {Object.entries(recordsByDate).map(([date, recordByDate]) => (
-          <LogbookPreviousRecord key={date} logbookId={logbook.id} date={date} recordByDate={recordByDate} />
-        ))}
-      </ul>
+      {recordsByDate && (
+        <ul className="no-icon" style={{ paddingTop: '20px' }}>
+          {[...recordsByDate.entries()]
+            .map(([date, data]) => (
+              <LogbookPreviousRecord key={date} logbookId={logbook.id} date={date} recordByDate={data} />
+            ))}
+        </ul>
+      )}
     </div>
   )
 }

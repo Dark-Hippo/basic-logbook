@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { LogBookRecordType } from '../context/LogbookContext';
-import { RecordsByDateType } from '../types/RecordsByDateType';
+import {
+  RecordByDateType,
+  RecordsByDateType,
+} from '../types/RecordsByDateType';
 import { useFormatDate } from './useFormatDate';
 import LogbookRecord from '../LogbookRecord';
 
@@ -11,40 +14,46 @@ import LogbookRecord from '../LogbookRecord';
  * @returns An object containing today's records, previous records, and daily total.
  */
 export const useRecords = (records: LogBookRecordType[]) => {
-  const [recordsByDate, setRecordsByDate] = useState<RecordsByDateType>({});
+  const [recordsByDate, setRecordsByDate] = useState<RecordsByDateType>();
   const { formatDateForURL } = useFormatDate();
 
-  const sortRecords = (records: RecordsByDateType): RecordsByDateType => {
-    // Step 1: Convert to array
-    const sortedEntries = Object.entries(records)
-      // Step 2: Sort the array
-      .sort(([date1], [date2]) => date2.localeCompare(date1));
+  // const sortRecords = (records: RecordsByDateType): RecordsByDateType => {
+  //   // Step 1: Convert to array
+  //   const sortedEntries = Object.entries(records)
+  //     // Step 2: Sort the array
+  //     .sort(([date1], [date2]) => date2.localeCompare(date1));
 
-    // Optional Step 3: Convert back to object if necessary
-    const sortedRecordsByDate = sortedEntries.reduce((acc, [date, data]) => {
-      acc[date] = data;
-      return acc;
-    }, {} as RecordsByDateType);
+  //   // Optional Step 3: Convert back to object if necessary
+  //   const sortedRecordsByDate = sortedEntries.reduce((acc, [date, data]) => {
+  //     acc[date] = data;
+  //     return acc;
+  //   }, {} as RecordsByDateType);
 
-    return sortedRecordsByDate;
-  };
+  //   return sortedRecordsByDate;
+  // };
 
   useEffect(() => {
-    // group logbook.records by date
-    const recordsByDate: RecordsByDateType = records.reduce((acc, record) => {
-      const date = formatDateForURL(record.added);
-      if (!acc[date]) {
-        acc[date] = { records: [], total: 0 };
+    // Assuming records is an array of LogbookRecord objects
+    // and formatDateForURL formats the date as a string key
+    const groupedByDate = new Map<string, RecordByDateType>();
+
+    records.forEach((record) => {
+      const dateKey = formatDateForURL(record.added); // Format the date to use as a key
+      const existingEntry = groupedByDate.get(dateKey);
+
+      if (existingEntry) {
+        // If the date already exists in the map, append the record to the records array
+        existingEntry.records.push(record);
+        existingEntry.total += record.value; // Assuming each record has a 'value' to sum up
+      } else {
+        // If the date does not exist, create a new entry in the map
+        groupedByDate.set(dateKey, { records: [record], total: record.value });
       }
-      acc[date].total += record.value;
-      acc[date].records.push(record);
-      return acc;
-    }, {} as RecordsByDateType);
+    });
 
-    // Step 1: Convert to array
-    const sortedEntries = sortRecords(recordsByDate);
-
-    setRecordsByDate(sortedEntries);
+    setRecordsByDate(groupedByDate);
+    // Now groupedByDate is a Map with dates as keys and RecordByDateType objects as values
+    // You can update your state or perform other actions with groupedByDate here
   }, [records]);
 
   const handleAddEntry = (entry: string) => {
@@ -54,32 +63,25 @@ export const useRecords = (records: LogBookRecordType[]) => {
 
     const record = new LogbookRecord(new Date(), Number(entry));
 
-    const newDateAdded: boolean = Object.keys(recordsByDate).includes(
-      formatDateForURL(record.added)
-    );
-
     records.push(record);
 
-    const newRecordsByDate = {
-      ...recordsByDate,
-      [formatDateForURL(record.added)]: {
-        records: [
-          ...(recordsByDate[formatDateForURL(record.added)]?.records || []),
-          record,
-        ],
-        total:
-          (recordsByDate[formatDateForURL(record.added)]?.total || 0) +
-          record.value,
-      },
-    };
+    setRecordsByDate((prevRecordsByDate) => {
+      const dateKey = formatDateForURL(record.added);
 
-    if (newDateAdded) {
-      setRecordsByDate(sortRecords(newRecordsByDate));
-    } else {
-      setRecordsByDate(newRecordsByDate);
-    }
-    console.log(newRecordsByDate);
-    console.log('sorted', sortRecords(newRecordsByDate));
+      const existingEntry = prevRecordsByDate?.get(dateKey);
+
+      if (existingEntry) {
+        return new Map(prevRecordsByDate).set(dateKey, {
+          records: [...existingEntry.records, record],
+          total: existingEntry.total + record.value,
+        });
+      }
+
+      return new Map(prevRecordsByDate).set(dateKey, {
+        records: [record],
+        total: record.value,
+      });
+    });
   };
 
   return {

@@ -5,6 +5,4 @@ export type RecordByDateType = {
   total: number;
 };
 
-export type RecordsByDateType = {
-  [key: string]: RecordByDateType;
-};
+export type RecordsByDateType = Map<string, RecordByDateType>;

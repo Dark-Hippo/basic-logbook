@@ -8,6 +8,11 @@ export const logbookData: LogBookType[] = [
     records: [
       {
         id: uuidv4(),
+        added: new Date('2024-06-20T08:00:00Z'),
+        value: 100,
+      },
+      {
+        id: uuidv4(),
         added: new Date('2024-06-11T08:00:00Z'),
         value: 100,
       },
@@ -23,13 +28,23 @@ export const logbookData: LogBookType[] = [
       },
       {
         id: uuidv4(),
-        added: new Date('2024-06-13T11:30:00Z'),
+        added: new Date('2024-06-11T11:30:00Z'),
         value: 300,
       },
       {
         id: uuidv4(),
         added: new Date('2024-06-14T09:00:00Z'),
         value: 300,
+      },
+      {
+        id: uuidv4(),
+        added: new Date('2024-06-26T09:00:00Z'),
+        value: 300,
+      },
+      {
+        id: uuidv4(),
+        added: new Date('2024-06-27T09:00:00Z'),
+        value: 250,
       },
     ],
   },

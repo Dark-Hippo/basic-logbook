@@ -17,21 +17,6 @@ export const useRecords = (records: LogBookRecordType[]) => {
   const [recordsByDate, setRecordsByDate] = useState<RecordsByDateType>();
   const { formatDateForURL } = useFormatDate();
 
-  // const sortRecords = (records: RecordsByDateType): RecordsByDateType => {
-  //   // Step 1: Convert to array
-  //   const sortedEntries = Object.entries(records)
-  //     // Step 2: Sort the array
-  //     .sort(([date1], [date2]) => date2.localeCompare(date1));
-
-  //   // Optional Step 3: Convert back to object if necessary
-  //   const sortedRecordsByDate = sortedEntries.reduce((acc, [date, data]) => {
-  //     acc[date] = data;
-  //     return acc;
-  //   }, {} as RecordsByDateType);
-
-  //   return sortedRecordsByDate;
-  // };
-
   useEffect(() => {
     // Assuming records is an array of LogbookRecord objects
     // and formatDateForURL formats the date as a string key

@@ -5,20 +5,34 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons"
 
 import './LogbookPreviousRecord.css'
 
-export const LogbookPreviousRecord = ({ logbookId, date, recordByDate }: { logbookId: number, date: string, recordByDate: RecordByDateType }) => {
+const getDateText = (date: string) => {
+  if (new Date(date).toDateString() === new Date().toDateString()) {
+    return 'Today'
+  }
 
-  const regionDate = new Date(date).toLocaleDateString('en-GB', {
+  const yesterday = new Date()
+  yesterday.setDate(yesterday.getDate() - 1)
+  if (new Date(date).toDateString() === yesterday.toDateString()) {
+    return 'Yesterday'
+  }
+
+  return new Date(date).toLocaleDateString('en-GB', {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric'
   });
+}
+
+export const LogbookPreviousRecord = ({ logbookId, date, recordByDate }: { logbookId: number, date: string, recordByDate: RecordByDateType }) => {
+
+  const dateText = getDateText(date);
 
   return (
     <li className="previousLogbookEntry">
       <Link to={`/logbook/${logbookId}/${date}`}>
         <div className="previousLogbookEntryContainer">
           <div className="text">
-            <div className="date">{regionDate}</div>
+            <div className="date">{dateText}</div>
             <div className="value">Total: {recordByDate.total}</div>
           </div>
           <div className="arrow">

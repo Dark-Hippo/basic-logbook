@@ -52,6 +52,7 @@ export const Logbook = () => {
       {recordsByDate && (
         <ul className="no-icon" style={{ paddingTop: '20px' }}>
           {[...recordsByDate.entries()]
+            .sort(([date1], [date2]) => date2.localeCompare(date1))
             .map(([date, data]) => (
               <LogbookPreviousRecord key={date} logbookId={logbook.id} date={date} recordByDate={data} />
             ))}

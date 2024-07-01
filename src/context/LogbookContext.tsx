@@ -1,5 +1,4 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import { logbookData } from "../testData";
 
 export type LogBookRecordType = {
   id: string;
@@ -19,7 +18,7 @@ type LogbookContextType = {
 };
 
 const LogbookContext = createContext<LogbookContextType>({
-  logbooks: [] = logbookData,
+  logbooks: [],
   addLogbook: () => { },
 });
 

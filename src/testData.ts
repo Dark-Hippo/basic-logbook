@@ -113,17 +113,31 @@ export const generateTestData = (
   return [logbook];
 };
 
-// calculate date for 30 days ago
-const date30DaysAgo = new Date();
-date30DaysAgo.setDate(date30DaysAgo.getDate() - 30);
+// calculate start date
+const startDate = new Date();
+startDate.setDate(startDate.getDate() - 365);
 
-// generate test data for the last 30 days with 1-5 records per day and values between 30 and 100
-export const testData = generateTestData(
+const proteinTestData = generateTestData(
   'Protein Intake',
-  date30DaysAgo,
+  startDate,
   new Date(),
   1,
-  5,
-  30,
-  100
+  1,
+  150,
+  200
 );
+
+const waistSizeTestData = {
+  id: 2,
+  name: 'Waist Size',
+  records: [
+    new LogbookRecord(new Date('2023-07-02T08:00:00Z'), 46),
+    new LogbookRecord(new Date('2023-10-03T08:00:00Z'), 45),
+    new LogbookRecord(new Date('2024-01-04T08:00:00Z'), 44),
+    new LogbookRecord(new Date('2024-04-05T08:00:00Z'), 42),
+    new LogbookRecord(new Date('2024-07-06T08:00:00Z'), 40),
+  ],
+};
+
+// generate test data for the last 30 days with 1-5 records per day and values between 30 and 100
+export const testData: LogBookType[] = [...proteinTestData, waistSizeTestData];

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { LogBookType, useLogbook } from "../context/LogbookContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecords } from "../hooks/useRecords";
 import { useFormatDate } from "../hooks/useFormatDate";
 
@@ -8,6 +8,9 @@ import './Logbook.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { LogbookPreviousRecord } from "../components/LogbookPreviousRecord";
+
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { render } from "react-dom";
 
 export const Logbook = () => {
   const { logbooks } = useLogbook();
@@ -19,6 +22,7 @@ export const Logbook = () => {
 
   const [entry, setEntry] = useState("");
   const { formatDate } = useFormatDate();
+  const [graphData, setGraphData] = useState<{ date: string, total: number }[]>();
 
   if (!logbook) {
     return <div>Logbook not found</div>
@@ -35,10 +39,38 @@ export const Logbook = () => {
     setEntry("");
   }
 
+  useEffect(() => {
+    if (!recordsByDate) return;
+    const graphData = [...recordsByDate.entries()]
+      .sort(([date1], [date2]) => date1.localeCompare(date2))
+      .map(([date, data]) => {
+        return { date, data }
+      });
+
+    setGraphData(
+      graphData.map(({ date, data }) => ({
+        date,
+        total: data.total
+      })
+      ));
+
+  }, [recordsByDate]);
+
   return (
     <div className="logbook">
       <h1>{logbook.name}</h1>
       <h2>{formatDate(new Date())}</h2>
+      <div className="chart">
+        <ResponsiveContainer width="100%" height={400}>
+          <LineChart data={graphData}>
+            <Line type="monotone" dataKey="total" stroke="#8884d8" />
+            <CartesianGrid stroke="#ccc" />
+            <XAxis dataKey="date" interval="preserveStartEnd" tickSize={10} tickFormatter={(value, index) => { return formatDate(new Date(value)) }} />
+            <YAxis width={30} />
+            <Tooltip />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
       <div className="logbookEntryTotalContainer">
         <div className="addEntry">
           <form onSubmit={submitHandler}>

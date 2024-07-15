@@ -125,6 +125,7 @@ main .buttonContainer > button.cancelButton .icon {
 }
 
 footer {
+  display: none;
   grid-area: footer;
   background-color: #00f;
   padding: 20px;

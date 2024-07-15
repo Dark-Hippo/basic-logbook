@@ -5,10 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import './AddNewLogbookModal.css';
+import { useTheme } from '../context/ThemeContext';
 
 export const AddNewLogbookModal = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { addLogbook } = useLogbook();
+  const { theme } = useTheme();
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -40,14 +42,18 @@ export const AddNewLogbookModal = () => {
         isOpen={modalIsOpen}
         appElement={document.getElementById('root') as HTMLElement}
         contentLabel='Add new logbook'
+        style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}
+        className={theme}
       >
-        <h2>Add new logbook</h2>
-        <form onSubmit={formSubmit}>
-          <label htmlFor='logbook-name'>Name</label>
-          <input id='logbook-name' type='text' />
-          <button type='submit'>Add</button>
-          <button onClick={closeModal}>Close</button>
-        </form>
+        <div className="newLogbookContainer">
+          <h2>Add new logbook</h2>
+          <form onSubmit={formSubmit}>
+            <label htmlFor='logbook-name'>Name</label>
+            <input id='logbook-name' type='text' />
+            <button type='submit'>Add</button>
+            <button onClick={closeModal}>Close</button>
+          </form>
+        </div>
       </Modal>
     </>
   )

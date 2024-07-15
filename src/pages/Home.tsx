@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { AddNewLogbookModal } from "../components/AddNewLogbookModal"
 import { LogbookList } from "../components/LogbookList"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCancel, faChartLine } from "@fortawesome/free-solid-svg-icons";
 
 export const Home = () => {
   const longPressDuration = 1000;
@@ -37,7 +39,22 @@ export const Home = () => {
         toggleSelection={toggleSelectionHandler}
         isSelecting={isSelecting}
         selectedIds={selectedIds} />
-      <AddNewLogbookModal />
+      <div className="buttonContainer">
+        {isSelecting && (
+          <>
+            <button className="compareButton">
+              <FontAwesomeIcon className='icon' icon={faChartLine} />
+              Compare
+            </button>
+            <button className='cancelButton' onClick={() => setIsSelecting(false)}>
+              <FontAwesomeIcon className='icon' icon={faCancel} />
+              Cancel
+            </button>
+          </>
+        ) || (
+            <AddNewLogbookModal />
+          )}
+      </div>
     </>
   )
 }

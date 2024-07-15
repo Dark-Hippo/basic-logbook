@@ -12,6 +12,7 @@ body {
   --input-color: #333;
   --delete-button-background-color: transparent;
   --delete-button-color: #9c0b0b;
+  --cancel-button-color: #ff0000;
 }
 
 #container.dark {
@@ -23,6 +24,7 @@ body {
   --input-color: #f0f0f0;
   --delete-button-background-color: transparent;
   --delete-button-color: #9c0b0b;
+  --cancel-button-color: #ff0000;
 }
 
 ul.no-icon {
@@ -98,6 +100,28 @@ main .logbookList .logbooks .logbookListEntry .graphCheckbox {
   align-items: center;
   padding: 0 10px;
   border-right: solid 1px var(--seperator-color);
+}
+
+main .buttonContainer {
+  width: 100%;
+  height: 2rem;
+  display: flex;
+}
+
+main .buttonContainer > button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main .buttonContainer > button .icon {
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+main .buttonContainer > button.cancelButton .icon {
+  color: var(--cancel-button-color);
 }
 
 footer {

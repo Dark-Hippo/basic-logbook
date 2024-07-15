@@ -44,6 +44,10 @@ ul.no-icon {
   color: var(--color);
 }
 
+.disabledLink {
+  pointer-events: none;
+}
+
 main {
   grid-area: main;
   background-color: var(--background-color);
@@ -87,6 +91,13 @@ main .logbookList .logbooks .logbookListEntry a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+main .logbookList .logbooks .logbookListEntry .graphCheckbox {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  border-right: solid 1px var(--seperator-color);
 }
 
 footer {

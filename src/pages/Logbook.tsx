@@ -10,7 +10,6 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { LogbookPreviousRecord } from "../components/LogbookPreviousRecord";
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { render } from "react-dom";
 
 export const Logbook = () => {
   const { logbooks } = useLogbook();
@@ -65,7 +64,7 @@ export const Logbook = () => {
           <LineChart data={graphData}>
             <Line type="monotone" dataKey="total" stroke="#8884d8" />
             <CartesianGrid stroke="#ccc" />
-            <XAxis dataKey="date" interval="preserveStartEnd" tickSize={10} tickFormatter={(value, index) => { return formatDate(new Date(value)) }} />
+            <XAxis dataKey="date" interval="preserveStartEnd" tickSize={10} tickFormatter={(value) => { return formatDate(new Date(value)) }} />
             <YAxis width={30} />
             <Tooltip />
           </LineChart>

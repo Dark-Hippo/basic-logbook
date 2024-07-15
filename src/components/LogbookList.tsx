@@ -3,37 +3,20 @@ import { faArrowRight, faCheckSquare, faSquare } from '@fortawesome/free-solid-s
 
 import { Link } from "react-router-dom";
 import { useLogbook } from "../context/LogbookContext";
-import { useState } from 'react';
 
-export const LogbookList = () => {
-  const longPressDuration = 1000;
+interface LogbookListProps {
+  handleMouseDown: (id: number) => void;
+  handleMouseUp: () => void;
+  toggleSelection: (id: number) => void;
+  isSelecting: boolean;
+  selectedIds: Set<number>;
+}
+
+export const LogbookList = (props: LogbookListProps) => {
+
+  const { handleMouseUp, handleMouseDown, toggleSelection, selectedIds, isSelecting } = props;
 
   const { logbooks } = useLogbook();
-  const [isSelecting, setIsSelecting] = useState(false);
-  const [selectedIds, setSelectedIds] = useState(new Set());
-
-  let holdTimer: any;
-
-  const handleMouseDown = (id: number) => {
-    holdTimer = setTimeout(() => {
-      setIsSelecting(true);
-      setSelectedIds(new Set([id]));
-    }, longPressDuration);
-  };
-
-  const handleMouseUp = () => {
-    clearTimeout(holdTimer);
-  }
-
-  const toggleSelection = (id: number) => {
-    const newSelection = new Set(selectedIds);
-    if (newSelection.has(id)) {
-      newSelection.delete(id);
-    } else {
-      newSelection.add(id);
-    }
-    setSelectedIds(newSelection);
-  }
 
   return (
     <section className='logbookList'>

@@ -42,16 +42,20 @@ export const AddNewLogbookModal = () => {
         isOpen={modalIsOpen}
         appElement={document.getElementById('root') as HTMLElement}
         contentLabel='Add new logbook'
-        style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}
+        style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' }, content: { margin: '20px' } }}
         className={theme}
       >
         <div className="newLogbookContainer">
           <h2>Add new logbook</h2>
           <form onSubmit={formSubmit}>
-            <label htmlFor='logbook-name'>Name</label>
-            <input id='logbook-name' type='text' />
-            <button type='submit'>Add</button>
-            <button onClick={closeModal}>Close</button>
+            <div className="inputContainer">
+              <label htmlFor='logbook-name'>Name</label>
+              <input id='logbook-name' type='text' />
+            </div>
+            <div className="buttonContainer">
+              <button type='submit'>Add</button>
+              <button onClick={closeModal}>Close</button>
+            </div>
           </form>
         </div>
       </Modal>

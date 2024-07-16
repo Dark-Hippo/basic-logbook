@@ -14,3 +14,25 @@
   align-items: center;
   padding: 1rem;
 }
+
+#add-new-logbook .newLogbookContainer .inputContainer {
+  margin: 20px 0;
+}
+
+#add-new-logbook .newLogbookContainer .inputContainer label {
+  margin-right: 10px;
+}
+
+#add-new-logbook .newLogbookContainer .buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 2rem;
+}
+
+#add-new-logbook .newLogbookContainer .buttonContainer > button {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

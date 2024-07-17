@@ -116,6 +116,10 @@ main .buttonContainer button {
   height: 100%;
 }
 
+main .buttonContainer > a {
+  width: 100%;
+}
+
 main .buttonContainer button .icon {
   margin-right: 10px;
   font-size: 1rem;

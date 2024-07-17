@@ -108,19 +108,20 @@ main .buttonContainer {
   display: flex;
 }
 
-main .buttonContainer > button {
+main .buttonContainer button {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
-main .buttonContainer > button .icon {
+main .buttonContainer button .icon {
   margin-right: 10px;
   font-size: 1rem;
 }
 
-main .buttonContainer > button.cancelButton .icon {
+main .buttonContainer button.cancelButton .icon {
   color: var(--cancel-button-color);
 }
 

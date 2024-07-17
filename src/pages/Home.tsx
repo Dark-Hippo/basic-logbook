@@ -43,7 +43,9 @@ export const Home = () => {
       <div className="buttonContainer">
         {isSelecting && (
           <>
-            <Link to='/compare'>
+            <Link to='/compare'
+              state={{ selectedIds: Array.from(selectedIds) }}
+            >
               <button className="compareButton">
                 <FontAwesomeIcon className='icon' icon={faChartLine} />
                 Compare

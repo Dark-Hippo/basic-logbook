@@ -39,3 +39,20 @@ export const useRecordsForComparison = (logbooks: LogBookType[]) => {
     logbookRecordsByDate,
   };
 };
+
+/**
+ * The above won't work for this chart library.
+ * The format should be along the lines of this:
+ * [
+ *  {
+ *    date: '2024-06-11',
+ *    protein: 100,
+ *    waist: 36,
+ * },
+ * {
+ *    date: '2024-06-12',
+ *    protein: 150,
+ *    waist: 36,
+ *  },
+ * ]
+ */

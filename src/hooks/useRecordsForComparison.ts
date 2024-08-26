@@ -55,4 +55,6 @@ export const useRecordsForComparison = (logbooks: LogBookType[]) => {
  *    waist: 36,
  *  },
  * ]
+ * see https://recharts.org/en-US/examples/BiaxialLineChart
+ * and https://recharts.org/en-US/examples/LineChartHasMultiSeries
  */

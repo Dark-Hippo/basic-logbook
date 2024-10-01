@@ -19,7 +19,7 @@ export const useRecordsForCombinedComparison = (logbooks: LogBookType[]) => {
       const value = record.value || 0;
 
       if (existingEntry) {
-        (existingEntry[logbook.id] as number) += value;
+        existingEntry[logbook.id] = value;
       } else {
         combined.push({
           date: dateKey,

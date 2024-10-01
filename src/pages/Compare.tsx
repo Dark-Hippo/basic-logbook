@@ -12,7 +12,6 @@ export const Compare = () => {
   const { logbooks } = useLogbook();
   const [selectedLogbooks, setSelectedLogbooks] = useState(logbooks.filter(logbook => selectedIds.includes(logbook.id)));
 
-  const { logbookRecordsByDate } = useRecordsForComparison(selectedLogbooks);
   const { combinedRecords } = useRecordsForCombinedComparison(selectedLogbooks);
 
   console.log('combinedRecords', combinedRecords);
@@ -28,10 +27,10 @@ export const Compare = () => {
           <LineChart data={combinedRecords}>
             <CartesianGrid stroke="#ccc" />
             <Line type="monotone" yAxisId="left" dataKey="1" stroke="#8884d8" />
-            <YAxis yAxisId="left" width={30} />
-            <XAxis dataKey="date" />
-            <YAxis yAxisId="right" orientation="right" width={30} />
             <Line type="monotone" yAxisId="right" dataKey="2" stroke="#82ca9d" />
+            <YAxis yAxisId="left" width={30} />
+            <YAxis yAxisId="right" orientation="right" width={30} />
+            <XAxis dataKey="date" />
             <Tooltip />
             <Legend />
           </LineChart>

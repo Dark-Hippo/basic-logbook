@@ -14,8 +14,6 @@ export const Compare = () => {
 
   const { combinedRecords } = useRecordsForCombinedComparison(selectedLogbooks);
 
-  console.log('combinedRecords', combinedRecords);
-
   const comparisonTitle = selectedLogbooks.map(logbook => logbook.name).join(' vs ');
 
   return (
@@ -24,15 +22,24 @@ export const Compare = () => {
       <div className="chart">
         {/* Render a chart comparing the values of the selected logbooks */}
         <ResponsiveContainer width="100%" height={400}>
-          <LineChart data={combinedRecords}>
-            <CartesianGrid stroke="#ccc" />
-            <Line type="monotone" yAxisId="left" dataKey="1" stroke="#8884d8" />
-            <Line type="monotone" yAxisId="right" dataKey="2" stroke="#82ca9d" />
+          <LineChart
+            width={500}
+            height={300}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+            data={combinedRecords}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" />
             <YAxis yAxisId="left" width={30} />
             <YAxis yAxisId="right" orientation="right" width={30} />
-            <XAxis dataKey="date" />
             <Tooltip />
             <Legend />
+            <Line type="monotone" yAxisId="left" dataKey="1" stroke="#8884d8" connectNulls={true} />
+            <Line type="monotone" yAxisId="right" dataKey="2" stroke="#82ca9d" connectNulls={true} />
           </LineChart>
         </ResponsiveContainer>
       </div>

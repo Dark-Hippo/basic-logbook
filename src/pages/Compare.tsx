@@ -12,6 +12,9 @@ export const Compare = () => {
   const { logbooks } = useLogbook();
   const [selectedLogbooks, setSelectedLogbooks] = useState(logbooks.filter(logbook => selectedIds.includes(logbook.id)));
 
+  const [showLegend, setShowLegend] = useState(true);
+  const [showDataPoints, setShowDataPoints] = useState(false);
+
   const { combinedRecords } = useRecordsForCombinedComparison(selectedLogbooks);
 
   const comparisonTitle = selectedLogbooks.map(logbook => logbook.name).join(' vs ');
@@ -37,11 +40,15 @@ export const Compare = () => {
             <YAxis yAxisId="left" width={30} />
             <YAxis yAxisId="right" orientation="right" width={30} />
             <Tooltip />
-            <Legend />
-            <Line type="monotone" yAxisId="left" dataKey="1" stroke="#8884d8" connectNulls={true} />
-            <Line type="monotone" yAxisId="right" dataKey="2" stroke="#82ca9d" connectNulls={true} />
+            {showLegend && <Legend />}
+            <Line type="monotone" yAxisId="left" dataKey="1" stroke="#8884d8" connectNulls={true} dot={showDataPoints} />
+            <Line type="monotone" yAxisId="right" dataKey="2" stroke="#82ca9d" connectNulls={true} dot={showDataPoints} />
           </LineChart>
         </ResponsiveContainer>
+        <div className="optionsContainer">
+          <input type="checkbox" name="show_legend" id="show_legend" checked={showLegend} onChange={() => setShowLegend(!showLegend)} /><label htmlFor="show_legend">Show Legend</label>
+          <input type="checkbox" name="show_data_points" id="show_data_points" checked={showDataPoints} onChange={() => setShowDataPoints(!showDataPoints)} /><label htmlFor="show_data_points">Show Data Points</label>
+        </div>
       </div>
     </div>
   )

@@ -154,11 +154,11 @@ const waistSizeTestData = {
   id: 2,
   name: 'Waist Size',
   records: [
-    new LogbookRecord(new Date('2024-10-02T08:00:00Z'), 46),
-    new LogbookRecord(new Date('2024-10-09T08:00:00Z'), 45),
+    new LogbookRecord(new Date('2024-10-02T08:00:00Z'), 40),
+    new LogbookRecord(new Date('2024-10-09T08:00:00Z'), 42),
     new LogbookRecord(new Date('2024-10-16T08:00:00Z'), 44),
-    new LogbookRecord(new Date('2024-10-23T08:00:00Z'), 42),
-    new LogbookRecord(new Date('2024-10-30T08:00:00Z'), 40),
+    new LogbookRecord(new Date('2024-10-23T08:00:00Z'), 45),
+    new LogbookRecord(new Date('2024-10-30T08:00:00Z'), 46),
   ],
 };
 

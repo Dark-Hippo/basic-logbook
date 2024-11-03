@@ -29,26 +29,12 @@ export const useRecordsForCombinedComparison = (logbooks: LogBookType[]) => {
     });
   });
 
+  // sort records by date descending
+  combined.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+
   return {
     combinedRecords: combined,
   };
 };
-
-/**
- * The above won't work for this chart library.
- * The format should be along the lines of this:
- * [
- *  {
- *    date: '2024-06-11',
- *    protein: 100,
- *    waist: 36,
- * },
- * {
- *    date: '2024-06-12',
- *    protein: 150,
- *    waist: 36,
- *  },
- * ]
- * see https://recharts.org/en-US/examples/BiaxialLineChart
- * and https://recharts.org/en-US/examples/LineChartHasMultiSeries
- */

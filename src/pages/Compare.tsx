@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useLogbook } from "../context/LogbookContext";
-import { useEffect, useState } from "react";
-import { useRecordsForComparison } from "../hooks/useRecordsForComparison";
+import { useState } from "react";
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useRecordsForCombinedComparison } from "../hooks/useRecordsForCombinedComparison";
 

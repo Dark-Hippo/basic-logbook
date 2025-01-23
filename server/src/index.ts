@@ -1,8 +1,29 @@
 import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
+import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 4000;
+
+// CORS configuration
+const corsOrigins: { [key: string]: string[] } = {
+  development: [
+    `http://localhost:${process.env.CLIENT_PORT}`,
+    'http://localhost:3000',
+  ],
+  production: [process.env.PRODUCTION_URL || 'https://yourdomain.com'],
+};
+
+const corsOptions = {
+  origin:
+    corsOrigins[
+      (process.env.NODE_ENV as 'development' | 'production') || 'development'
+    ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 

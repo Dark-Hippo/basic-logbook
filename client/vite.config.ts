@@ -11,5 +11,8 @@ export default defineConfig(({ mode }) => {
       port: parseInt(env.CLIENT_PORT || '5173'),
       host: true, // Allows connections from network, not just localhost
     },
+    prettier: {
+      configPath: path.resolve(__dirname, '../.prettierrc'),
+    },
   };
 });

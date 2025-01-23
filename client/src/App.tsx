@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css'
 import { Header } from './components/Header'
@@ -8,9 +8,11 @@ import { Logbook } from './pages/Logbook';
 import { NotFound } from './pages/404';
 import { LogbookDay } from './pages/LogbookDay';
 import { Compare } from './pages/Compare';
+import { useServerVersion } from './hooks/useServerVersion';
 
 function App() {
   const { theme } = useTheme();
+  const { version, error, loading } = useServerVersion();
 
   return (
     <div id='container' className={theme}>
@@ -29,7 +31,15 @@ function App() {
           <Route path='*' element={<NotFound />} />
         </Routes>
       </main>
-      <footer></footer>
+      <footer>
+        {loading ? (
+          <span>Loading version...</span>
+        ) : error ? (
+          <span>Error: {error}</span>
+        ) : (
+          <span>{version}</span>
+        )}
+      </footer>
     </div>
   )
 }

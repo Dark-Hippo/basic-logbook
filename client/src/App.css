@@ -130,10 +130,18 @@ main .buttonContainer button.cancelButton .icon {
 }
 
 footer {
-  display: none;
   grid-area: footer;
-  background-color: #00f;
-  padding: 20px;
+  background-color: var(--background-color);
+  color: var(--color);
+  padding: 10px;
+  text-align: center;
+  border-top: 1px solid var(--seperator-color);
+  display: flex;
+  justify-content: end;
+}
+
+footer span {
+  font-size: 0.8em;
 }
 
 section {

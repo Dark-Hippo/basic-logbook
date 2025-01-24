@@ -38,10 +38,10 @@ services:
 
 ## Development order of operations
 
-1. DB container (see above)
-2. Simple API as a directory in the project
-3. CORS for the API
-4. Simple API call from the app
-5. AWS IAM for the app
+1. ~~DB container (see above)~~
+2. ~~Simple API as a directory in the project~~
+3. ~~CORS for the API~~
+4. ~~Simple API call from the app~~
+5. AWS IAM for the app (Cognito)
 6. DB user table
 7. DB user table API

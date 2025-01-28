@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css'
 import { Header } from './components/Header'
@@ -9,6 +8,7 @@ import { NotFound } from './pages/404';
 import { LogbookDay } from './pages/LogbookDay';
 import { Compare } from './pages/Compare';
 import { useServerVersion } from './hooks/useServerVersion';
+import { AuthCallback } from './components/AuthCallback';
 
 function App() {
   const { theme } = useTheme();
@@ -17,6 +17,7 @@ function App() {
   return (
     <div id='container' className={theme}>
       <Routes>
+        <Route path='/callback' element={<AuthCallback />} />
         <Route path='logbook/:logbookId/' element={<Header back={true} title='Simple logbook' />} />
         <Route path='logbook/:logbookId/:date' element={<Header back={true} title='Simple logbook' />} />
         <Route path='compare' element={<Header back={true} title='Simple logbook' />} />
@@ -24,6 +25,7 @@ function App() {
       </Routes>
       <main>
         <Routes>
+          <Route path='/callback' element={<AuthCallback />} />
           <Route path='/' element={<Home />} />
           <Route path='logbook/:logbookId/' element={<Logbook />} />
           <Route path='logbook/:logbookId/:date' element={<LogbookDay />} />
@@ -41,7 +43,7 @@ function App() {
         )}
       </footer>
     </div>
-  )
+  );
 }
 
 export default App

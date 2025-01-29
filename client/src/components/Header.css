@@ -146,7 +146,7 @@ header .middle {
 .menu-sidebar button.close-button:hover {
   background-color: var(--seperator-color);
 }
-
+/* 
 .toggle-switch {
   position: relative;
   display: inline-block;
@@ -196,4 +196,4 @@ input:checked + .toggle-slider {
 input:checked + .toggle-slider:before {
   transform: translateX(20px);
   background-color: var(--background-color);
-}
+} */

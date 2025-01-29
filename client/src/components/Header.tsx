@@ -11,6 +11,7 @@ import {
 import { faMoon as faMoonRegular } from '@fortawesome/free-regular-svg-icons';
 import { useTheme } from '../context/ThemeContext';
 import { Link, useParams } from 'react-router-dom';
+import { ThemeToggle } from './ThemeToggle';
 
 import './Header.css';
 
@@ -50,18 +51,12 @@ export const Header = ({ back, title }: HeaderProps) => {
           <button className="close-button" onClick={handleClose}>
             <FontAwesomeIcon icon={faXmark} />
           </button>
-          <button onClick={toggleTheme}>
-            <FontAwesomeIcon icon={themeIcon} />
-            <span>Theme</span>
-            <label className="toggle-switch">
-              <input
-                type="checkbox"
-                checked={theme === 'dark'}
-                onChange={toggleTheme}
-              />
-              <span className="toggle-slider"></span>
-            </label>
-          </button>
+          <ThemeToggle
+            icon={themeIcon}
+            label="Theme"
+            isChecked={theme === 'dark'}
+            onChange={toggleTheme}
+          />
           <button>
             <FontAwesomeIcon icon={faGear} />
             <span>Settings</span>

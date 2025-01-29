@@ -5,7 +5,8 @@ import {
   faMoon as faMoonSolid,
   faBars,
   faGear,
-  faRightToBracket
+  faRightToBracket,
+  faXmark
 } from '@fortawesome/free-solid-svg-icons';
 import { faMoon as faMoonRegular } from '@fortawesome/free-regular-svg-icons';
 import { useTheme } from '../context/ThemeContext';
@@ -46,6 +47,9 @@ export const Header = ({ back, title }: HeaderProps) => {
 
       <div className={`menu-overlay ${isMenuOpen ? 'open' : ''}`} onClick={handleClose}>
         <div className={`menu-sidebar ${isMenuOpen ? 'open' : ''}`} onClick={e => e.stopPropagation()}>
+          <button className="close-button" onClick={handleClose}>
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
           <button onClick={toggleTheme}>
             <FontAwesomeIcon icon={themeIcon} />
             <span>Theme</span>

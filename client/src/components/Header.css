@@ -134,3 +134,15 @@ header .middle {
 .menu-sidebar button:not(:last-child) {
   border-bottom: 1px solid var(--seperator-color);
 }
+
+.menu-sidebar button.close-button {
+  padding: 15px;
+  display: flex;
+  justify-content: flex-end;
+  color: var(--color);
+  border-bottom: 1px solid var(--seperator-color);
+}
+
+.menu-sidebar button.close-button:hover {
+  background-color: var(--seperator-color);
+}

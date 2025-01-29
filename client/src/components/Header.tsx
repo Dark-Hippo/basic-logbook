@@ -53,6 +53,14 @@ export const Header = ({ back, title }: HeaderProps) => {
           <button onClick={toggleTheme}>
             <FontAwesomeIcon icon={themeIcon} />
             <span>Theme</span>
+            <label className="toggle-switch">
+              <input
+                type="checkbox"
+                checked={theme === 'dark'}
+                onChange={toggleTheme}
+              />
+              <span className="toggle-slider"></span>
+            </label>
           </button>
           <button>
             <FontAwesomeIcon icon={faGear} />

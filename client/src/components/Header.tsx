@@ -25,6 +25,8 @@ export const Header = ({ back, title }: HeaderProps) => {
   const themeIcon = theme === 'light' ? faMoonRegular : faMoonSolid;
   const backLink = date ? `/logbook/${logbookId}` : '/';
 
+  const handleClose = () => setIsMenuOpen(false);
+
   return (
     <header>
       <div className="left">
@@ -36,27 +38,26 @@ export const Header = ({ back, title }: HeaderProps) => {
       </div>
       <div className="middle">{title}</div>
       <div className="right">
-        <div className="menu-container">
-          <FontAwesomeIcon
-            icon={faBars}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          />
-          {isMenuOpen && (
-            <div className="menu-dropdown">
-              <button onClick={toggleTheme}>
-                <FontAwesomeIcon icon={themeIcon} />
-                <span>Theme</span>
-              </button>
-              <button>
-                <FontAwesomeIcon icon={faGear} />
-                <span>Settings</span>
-              </button>
-              <button>
-                <FontAwesomeIcon icon={faRightToBracket} />
-                <span>Login</span>
-              </button>
-            </div>
-          )}
+        <FontAwesomeIcon
+          icon={faBars}
+          onClick={() => setIsMenuOpen(true)}
+        />
+      </div>
+
+      <div className={`menu-overlay ${isMenuOpen ? 'open' : ''}`} onClick={handleClose}>
+        <div className={`menu-sidebar ${isMenuOpen ? 'open' : ''}`} onClick={e => e.stopPropagation()}>
+          <button onClick={toggleTheme}>
+            <FontAwesomeIcon icon={themeIcon} />
+            <span>Theme</span>
+          </button>
+          <button>
+            <FontAwesomeIcon icon={faGear} />
+            <span>Settings</span>
+          </button>
+          <button>
+            <FontAwesomeIcon icon={faRightToBracket} />
+            <span>Login</span>
+          </button>
         </div>
       </div>
     </header>

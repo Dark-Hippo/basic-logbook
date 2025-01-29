@@ -94,7 +94,10 @@ header .middle {
   position: fixed;
   top: 0;
   right: -250px;
-  width: 250px;
+  width: min(
+    250px,
+    50vw
+  ); /* Use min() to take smaller of fixed width or 50% viewport */
   height: 100%;
   background-color: var(--background-color);
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
@@ -104,6 +107,11 @@ header .middle {
 
 .menu-sidebar.open {
   right: 0;
+}
+
+/* Update transform to match width */
+.menu-sidebar:not(.open) {
+  transform: translateX(min(250px, 50vw));
 }
 
 .menu-sidebar button {

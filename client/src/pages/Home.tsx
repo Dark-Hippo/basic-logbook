@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { AddNewLogbookModal } from "../components/AddNewLogbookModal"
 import { LogbookList } from "../components/LogbookList"

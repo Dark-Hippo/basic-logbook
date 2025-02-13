@@ -57,9 +57,11 @@ export const Header = ({ back, title }: HeaderProps) => {
             isChecked={theme === 'dark'}
             onChange={toggleTheme}
           />
-          <button>
-            <FontAwesomeIcon icon={faGear} />
-            <span>Settings</span>
+          <button onClick={handleClose}>
+            <Link to="/settings">
+              <FontAwesomeIcon icon={faGear} />
+              <span>Settings</span>
+            </Link>
           </button>
           <button>
             <FontAwesomeIcon icon={faRightToBracket} />

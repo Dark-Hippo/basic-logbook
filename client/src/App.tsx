@@ -9,6 +9,7 @@ import { LogbookDay } from './pages/LogbookDay';
 import { Compare } from './pages/Compare';
 import { useServerVersion } from './hooks/useServerVersion';
 import { AuthCallback } from './components/AuthCallback';
+import { Settings } from './pages/Settings';
 
 function App() {
   const { theme } = useTheme();
@@ -30,6 +31,7 @@ function App() {
           <Route path='logbook/:logbookId/' element={<Logbook />} />
           <Route path='logbook/:logbookId/:date' element={<LogbookDay />} />
           <Route path='compare' element={<Compare />} />
+          <Route path='/settings' element={<Settings />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </main>

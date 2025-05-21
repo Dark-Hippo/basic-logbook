@@ -9,7 +9,7 @@ export const Compare = () => {
   const selectedIds = location.state?.selectedIds as number[] || [];
 
   const { logbooks } = useLogbook();
-  const [selectedLogbooks, setSelectedLogbooks] = useState(logbooks.filter(logbook => selectedIds.includes(logbook.id)));
+  const [selectedLogbooks] = useState(logbooks.filter(logbook => selectedIds.includes(logbook.id)));
 
   const [showLegend, setShowLegend] = useState(true);
   const [showDataPoints, setShowDataPoints] = useState(false);

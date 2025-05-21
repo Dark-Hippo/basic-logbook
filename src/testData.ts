@@ -126,15 +126,15 @@ export const generateTestData = ({
 const startDate = new Date();
 startDate.setDate(startDate.getDate() - 365);
 
-const testData1 = {
-  logbookName: 'Protein Intake',
-  startDate: startDate,
-  endDate: new Date(),
-  minRecords: 1,
-  maxRecords: 1,
-  minValue: 150,
-  maxValue: 200,
-};
+// const testData1 = {
+//   logbookName: 'Protein Intake',
+//   startDate: startDate,
+//   endDate: new Date(),
+//   minRecords: 1,
+//   maxRecords: 1,
+//   minValue: 150,
+//   maxValue: 200,
+// };
 
 const startDate2 = new Date();
 startDate2.setDate(startDate2.getDate() - 30);
